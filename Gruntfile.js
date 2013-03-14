@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     },
 
     nodeunit: {
-      test: ['test/**/*_test.js']
+      test: ['test/*_test.js']
     },
 
     watch: {
@@ -39,24 +39,44 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     component: {
       test_dev: {
-        base: './test/fixtures/src',
-        output: './tmp/dev',
-        name: 'dev',
-        dev: true,
-        sourceUrls: true
+        files: [{
+            expand: true,
+            src: ['a', 'b'],
+            cwd: "./test/fixtures/src/",
+            dest: './tmp/dev/'
+        }],
+
+        options: {
+            includeDevelopmentDependencies: true,
+            addSourceUrls: true
+        }
+        
       },
+      
       test_prod: {
-        base: './test/fixtures/src',
-        output: './tmp/prod',
-        name: 'prod',
-        styles: false
+        files: [{
+            expand: true,
+            src: ['a', 'b'],
+            cwd: "./test/fixtures/src/",
+            dest: './tmp/prod/'
+        }],
+        options: {
+            processStyles: false
+        }
       },
+      
       test_standalone: {
-        base: './test/fixtures/src',
-        output: './tmp/standalone',
-        name: 'standalone',
-        standalone: '$',
-        styles: false
+        files: [{
+            expand: true,
+            src: ['a', 'b'],
+            cwd: "./test/fixtures/src/",
+            dest: './tmp/standalone/'
+        }],
+        
+        options: {
+            standalone: true,
+            processStyles: false
+        }
       }
     }
   });
@@ -73,6 +93,10 @@ module.exports = function(grunt) {
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
   grunt.registerTask('test', ['clean', 'component', 'nodeunit']);
+
+
+  grunt.registerTask('bla', ['component', 'nodeunit']);
+
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'test']);

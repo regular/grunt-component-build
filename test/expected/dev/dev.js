@@ -212,10 +212,10 @@ require.register("component-emitter/index.js", Function("exports, require, modul
 require.register("dep/index.js", Function("exports, require, module",
 "module.exports = 'Local dep';//@ sourceURL=dep/index.js"
 ));
-require.register("src/index.js", Function("exports, require, module",
-"var Emitter = require('emitter');\nvar localDep = require('local-dep');\n\nmodule.exports = Foo;\n\nfunction Foo() {\n  console.log(localDep);\n}\n\nEmitter(Foo.prototype);\n\nFoo.prototype.bar = function() {\n  this.emit('bar');\n};//@ sourceURL=src/index.js"
+require.register("a/index.js", Function("exports, require, module",
+"var Emitter = require('emitter');\nvar localDep = require('local-dep');\n\nmodule.exports = Foo;\n\nfunction Foo() {\n  console.log(localDep);\n}\n\nEmitter(Foo.prototype);\n\nFoo.prototype.bar = function() {\n  this.emit('bar');\n};//@ sourceURL=a/index.js"
 ));
-require.alias("component-emitter/index.js", "src/deps/emitter/index.js");
+require.alias("component-emitter/index.js", "a/deps/emitter/index.js");
 
-require.alias("dep/index.js", "src/deps/dep/index.js");
+require.alias("dep/index.js", "a/deps/dep/index.js");
 

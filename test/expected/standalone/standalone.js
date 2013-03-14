@@ -369,7 +369,7 @@ Emitter.prototype.hasListeners = function(event){
 require.register("dep/index.js", function(exports, require, module){
 module.exports = 'Local dep';
 });
-require.register("src/index.js", function(exports, require, module){
+require.register("a/index.js", function(exports, require, module){
 var Emitter = require('emitter');
 var localDep = require('local-dep');
 
@@ -385,14 +385,14 @@ Foo.prototype.bar = function() {
   this.emit('bar');
 };
 });
-require.alias("component-emitter/index.js", "src/deps/emitter/index.js");
+require.alias("component-emitter/index.js", "a/deps/emitter/index.js");
 
-require.alias("dep/index.js", "src/deps/dep/index.js");
+require.alias("dep/index.js", "a/deps/dep/index.js");
 
 if (typeof exports == "object") {
-  module.exports = require("src");
+  module.exports = require("a");
 } else if (typeof define == "function" && define.amd) {
-  define(function(){ return require("src"); });
+  define(function(){ return require("a"); });
 } else {
-  window["$"] = require("src");
+  window["a"] = require("a");
 }})();

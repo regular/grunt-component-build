@@ -25,18 +25,17 @@ var read = grunt.file.read;
 
 exports['component'] = {
 
-
   dev: function(test) {
     test.expect(2);
-
-    var actual = read('tmp/dev/dev.js');
+    
+    var actual = read('tmp/dev/a/a.js');
     var expected = read('test/expected/dev/dev.js');
-
+    
     test.equal(actual, expected, 'should have the same output');
-
-    actual = read('tmp/dev/dev.css');
+    
+    actual = read('tmp/dev/a/a.css');
     expected = read('test/expected/dev/dev.css');
-
+    
     test.equal(actual, expected, 'should have the same output');
 
     test.done();
@@ -44,23 +43,23 @@ exports['component'] = {
 
   build_prod: function(test) {
     test.expect(1);
-
-    var actual = read('tmp/prod/prod.js');
+  
+    var actual = read('tmp/prod/a/a.js');
     var expected = read('test/expected/prod/prod.js');
-
+  
     test.equal(actual, expected, 'should have the same output');
-
+  
     test.done();
   },
-
+   
   standalone: function(test) {
     test.expect(1);
-
-    var actual = read('tmp/standalone/standalone.js');
+  
+    var actual = read('tmp/standalone/a/a.js');
     var expected = read('test/expected/standalone/standalone.js');
-
+  
     test.equal(actual, expected, 'should have the same output');
-
+  
     test.done();
   }
 

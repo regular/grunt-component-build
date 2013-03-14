@@ -1,0 +1,19 @@
+{
+  "name": "b",
+  "dependencies": {
+    "component/emitter": "*"
+  },
+  "paths": [
+    "../components",
+    "../.."
+  ],
+  "local": [
+    "dep"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "styles.css"
+  ]
+}

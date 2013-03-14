@@ -1,10 +1,11 @@
 {
-  "name": "src",
+  "name": "a",
   "dependencies": {
     "component/emitter": "*"
   },
   "paths": [
-    ".."
+    "../components", 
+    "../.."
   ],
   "local": [
     "dep"

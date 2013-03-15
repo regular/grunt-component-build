@@ -99,7 +99,9 @@ module.exports = function(grunt) {
     builder.addLookup(path.join(srcDir, 'components'));
   
     // The component config
-    var config = require(path.resolve(src));
+    var absPath = path.resolve(src);
+    debug("require %s", absPath);
+    var config = require(absPath);
 
     if (config.paths) {
       config.paths = config.paths.map(function(p) {

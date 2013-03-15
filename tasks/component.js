@@ -99,7 +99,7 @@ module.exports = function(grunt) {
     builder.addLookup(path.join(srcDir, 'components'));
   
     // The component config
-    var config = require(src);
+    var config = require(path.resolve(src));
 
     if (config.paths) {
       config.paths = config.paths.map(function(p) {
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
     } else {
       return cb(new Error("No name given in component.json"));
     }
-    debug("processing component",name);
+    debug("processing component %s",name);
 
     if (opts.plugins) {
       opts.plugins.forEach(function(name) {

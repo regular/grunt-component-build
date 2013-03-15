@@ -13,6 +13,7 @@ var Builder = require('component-builder');
 var fs = require('fs');
 var path = require('path');
 var template = fs.readFileSync(__dirname + '/../lib/require.tmpl').toString();
+var debug = require('debug')("grunt:component");
 
 module.exports = function(grunt) {
 
@@ -58,9 +59,12 @@ module.exports = function(grunt) {
           srcDir = path.dirname(src);
         }
         
-        //console.log("srcDir", srcDir);
-        //console.log("destDir", destDir);
+        if (typeof destDir === 'undefined') {
+          destDir = path.join(srcDir, "build");
+        }
         
+        debug("srcDir %s", srcDir);
+        debug("destDir %s", destDir);
         
         q.push({
           opts: grunt.util._.clone(opts),
@@ -116,10 +120,10 @@ module.exports = function(grunt) {
     }
 
     if (opts.addSourceUrls === true) {
-      //console.log("adding source urls!");
+      debug("adding source urls!");
       builder.addSourceURLs();
     } else {
-      //console.log("not adding source urls!");
+      debug("not adding source urls!");
     }
 
     // Ignore component parts
@@ -141,34 +145,52 @@ module.exports = function(grunt) {
     } else {
       return cb(new Error("No name given in component.json"));
     }
+    debug("processing component",name);
 
     if (opts.plugins) {
       opts.plugins.forEach(function(name) {
-        var plugin = require('../plugins/' + name);
-        builder.use(plugin);
+        
+        var plugin;
+        if (typeof name === 'string') {
+            plugin = require('../plugins/' + name);
+        } else {
+          plugin = name;
+        }
+        if (plugin) {
+          builder.use(plugin);
+        } else {
+          grunt.fatal("failed to load component plugin "+ name);
+        }
       });
     }
 
     // Configure hook
-    if (opts.configure) {
-      opts.configure.call(null, builder);
-    }
+    // if (opts.configure) {
+    //   opts.configure.call(null, builder);
+    // }
+
+    debug("running builder ..");
 
     // Build the component
     builder.build(function(err, obj) {
       if (err) {
+        debug("builder failed");
         return cb(err);
+      } else {
+        debug("builder ok");
       }
 
       // Write CSS file
       if (opts.processStyles !== false) {
         var cssFile = path.join(destDir, name + '.css');
+        debug("writing %s", cssFile);
         grunt.file.write(cssFile, obj.css.trim());
       }
 
       // Write JS file
       if (opts.processScripts !== false) {
         var jsFile = path.join(destDir, name + '.js');
+        debug("writing %s", jsFile);
         if (opts.standalone) {
           // Defines the name of the global variable (window[opts.name]).
           // By default we use the name defined in the component.json,

@@ -31,9 +31,9 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "debug": "latest",
-    "coffee-script": "latest",
-    "string-to-js": "latest",
+    "debug": "0.7.x",
+    "coffee-script": "1.6.x",
+    "string-to-js": "0.0.x",
     "component-builder": "0.6.3"
   },
   "devDependencies": {

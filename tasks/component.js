@@ -28,6 +28,10 @@ module.exports = function(grunt) {
     var self = this;
     var done = self.async();
     var q;
+
+    if (this.files.length === 0) {
+    //  done();
+    }
         
     q = grunt.util.async.queue(function(task, cb) {
       buildComponent(grunt, task.opts, task.src, task.srcDir, task.destDir, cb);

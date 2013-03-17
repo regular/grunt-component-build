@@ -38,6 +38,15 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     component: {
+
+      test_empty: {
+        files: [{
+            expand: true,
+            src: ['notfound'],
+            cwd: "./test/fixtures/src/",
+            dest: './tmp/dev/'
+        }],        
+      },      
       test_dev: {
         files: [{
             expand: true,

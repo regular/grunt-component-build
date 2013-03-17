@@ -29,9 +29,11 @@ module.exports = function(grunt) {
     var done = self.async();
     var q;
 
+    debug("processing %d components", this.files.length);
+
     if (this.files.length === 0) {
       debug("nothing to do");
-      done();
+      return done();
     }
         
     q = grunt.util.async.queue(function(task, cb) {

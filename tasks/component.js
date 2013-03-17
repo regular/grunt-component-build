@@ -42,7 +42,8 @@ module.exports = function(grunt) {
       processStyles: true,
       processScripts: true,
       standalone: false,
-      configure: null
+      configure: null,
+      useLinks: true
     });
     
     var destDir;
@@ -88,6 +89,11 @@ module.exports = function(grunt) {
   
     // The component builder
     var builder = new Builder(srcDir);
+
+    // copy files instead of linking
+    if (opts.useLinks !== true) {
+      builder.copyFiles();
+    }
 
     // Where to output the final file
     builder.copyAssetsTo(destDir);

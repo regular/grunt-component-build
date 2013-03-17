@@ -32,13 +32,8 @@ module.exports = function(grunt) {
 
     debug("processing %d components", this.files.length);
     this.files.forEach(function(filePair) {
-      debug(inspect(filePair));
+      debug(inspect(filePair.src));
     });
-
-    if (this.files.length === 0) {
-      debug("nothing to do");
-      return done();
-    }
         
     q = grunt.util.async.queue(function(task, cb) {
       buildComponent(grunt, task.opts, task.src, task.srcDir, task.destDir, cb);
@@ -92,6 +87,12 @@ module.exports = function(grunt) {
 
       });
     });
+
+    if (q.length() === 0) {
+      debug("nothing to do");
+      return done();
+    }
+
   });
   
   

@@ -14,6 +14,7 @@ var fs = require('fs');
 var path = require('path');
 var template = fs.readFileSync(__dirname + '/../lib/require.tmpl').toString();
 var debug = require('debug')("grunt:component");
+var inspect = require('util').inspect;
 
 module.exports = function(grunt) {
 
@@ -30,6 +31,9 @@ module.exports = function(grunt) {
     var q;
 
     debug("processing %d components", this.files.length);
+    this.files.forEach(function(filePair) {
+      debug(inspect(filePair));
+    });
 
     if (this.files.length === 0) {
       debug("nothing to do");

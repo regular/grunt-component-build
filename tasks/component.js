@@ -30,7 +30,8 @@ module.exports = function(grunt) {
     var q;
 
     if (this.files.length === 0) {
-    //  done();
+      debug("nothing to do");
+      done();
     }
         
     q = grunt.util.async.queue(function(task, cb) {
